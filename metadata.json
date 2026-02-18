@@ -1,0 +1,8 @@
+{
+  "name": "Copy of Artistic Dossier - Portfoliobox Pro",
+  "description": "A high-end, customizable artistic portfolio and CV platform with dynamic galleries, integrated e-commerce, and AI-powered content refinement.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
