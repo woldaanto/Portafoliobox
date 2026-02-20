@@ -1,18 +1,16 @@
-
 import React, { useState, useEffect } from 'react';
-import { AppState, Project } from './types';
+import { AppState } from './types';
 import Navigation from './components/Navigation';
 import Hero from './components/Hero';
-import EditorDrawer from './components/EditorDrawer';
 
 const INITIAL_STATE: AppState = {
   name: "ALEXANDRE JOSEPH BELANGER",
-  bio: "Fotógrafo y Director Visual basado en Montreal. Especializado en capturar la cotidianidad con una mirada editorial.",
+  bio: "Portafolio editorial con enfoque en fotografía minimalista.",
   projects: [
-    { id: '1', title: "Street Life", category: "Photo", image: "https://images.unsplash.com/photo-1514306191717-452ec28c7814?auto=format&fit=crop&q=80&w=1000", description: "", letter: "A" },
-    { id: '2', title: "Geometry", category: "Photo", image: "https://images.unsplash.com/photo-1554080353-a576cf803bda?auto=format&fit=crop&q=80&w=1000", description: "", letter: "" },
-    { id: '3', title: "Ecos", category: "Photo", image: "https://images.unsplash.com/photo-1492691523569-7379e4004211?auto=format&fit=crop&q=80&w=1000", description: "", letter: "J" },
-    { id: '4', title: "Piel", category: "Photo", image: "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&q=80&w=1000", description: "", letter: "B" },
+    { id: '1', title: "Proyecto 1", category: "FOTO", image: "https://images.unsplash.com/photo-1514306191717-452ec28c7814?w=800", description: "", letter: "A" },
+    { id: '2', title: "Proyecto 2", category: "FOTO", image: "https://images.unsplash.com/photo-1554080353-a576cf803bda?w=800", description: "", letter: "" },
+    { id: '3', title: "Proyecto 3", category: "FOTO", image: "https://images.unsplash.com/photo-1492691523569-7379e4004211?w=800", description: "", letter: "J" },
+    { id: '4', title: "Proyecto 4", category: "FOTO", image: "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=800", description: "", letter: "B" },
   ],
   experiences: [],
   theme: {
@@ -27,26 +25,18 @@ const INITIAL_STATE: AppState = {
 
 const App: React.FC = () => {
   const [state, setState] = useState<AppState>(() => {
-    const saved = localStorage.getItem('portfolio_state');
+    const saved = localStorage.getItem('portfolio_v1');
     return saved ? JSON.parse(saved) : INITIAL_STATE;
   });
   
   const [isEditing, setIsEditing] = useState(false);
-  const [isEditorOpen, setIsEditorOpen] = useState(false);
 
   useEffect(() => {
-    document.body.style.backgroundColor = state.theme.backgroundColor;
-    document.body.style.color = state.theme.textColor;
-  }, [state.theme]);
+    localStorage.setItem('portfolio_v1', JSON.stringify(state));
+  }, [state]);
 
   const updateState = (newState: Partial<AppState>) => {
-    const updated = { ...state, ...newState };
-    setState(updated);
-    localStorage.setItem('portfolio_state', JSON.stringify(updated));
-  };
-
-  const handleNameChange = (e: React.FormEvent<HTMLDivElement>) => {
-    updateState({ name: e.currentTarget.innerText });
+    setState(prev => ({ ...prev, ...newState }));
   };
 
   const handleLetterChange = (id: string, newLetter: string) => {
@@ -55,13 +45,11 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className={`min-h-screen ${state.theme.bodyFont} selection:bg-black selection:text-white pb-20`}>
-      {/* Navegación Minimalista de la Imagen */}
+    <div className="min-h-screen selection:bg-black selection:text-white pb-20">
       <Navigation 
         name={state.name}
         isEditing={isEditing}
-        onNameChange={handleNameChange}
-        theme={state.theme}
+        onNameChange={(val) => updateState({ name: val })}
       />
       
       <main className="pt-24 px-4 md:px-8">
@@ -72,32 +60,17 @@ const App: React.FC = () => {
         />
       </main>
 
-      {/* Botones de Control de Edición */}
-      <div className="fixed bottom-8 right-8 z-50 flex flex-col gap-3">
+      {/* Botón Flotante para Guardar/Editar */}
+      <div className="fixed bottom-8 right-8 z-50">
         <button 
           onClick={() => setIsEditing(!isEditing)}
-          className={`${isEditing ? 'bg-green-600' : 'bg-black'} text-white px-8 py-4 rounded-full shadow-2xl flex items-center gap-3 hover:scale-105 active:scale-95 transition-all font-bold text-[10px] uppercase tracking-widest`}
+          className={`px-8 py-4 rounded-full shadow-2xl transition-all font-bold text-[10px] tracking-widest uppercase ${
+            isEditing ? 'bg-green-600 text-white' : 'bg-black text-white hover:scale-105'
+          }`}
         >
           {isEditing ? 'GUARDAR CAMBIOS' : 'MODO EDICIÓN'}
         </button>
-        
-        {!isEditing && (
-          <button 
-            onClick={() => setIsEditorOpen(true)}
-            className="bg-white text-black border border-black/10 px-8 py-4 rounded-full shadow-xl flex items-center gap-3 hover:scale-105 transition-all font-bold text-[10px] uppercase tracking-widest"
-          >
-            CONFIGURACIÓN PRO
-          </button>
-        )}
       </div>
-
-      {isEditorOpen && (
-        <EditorDrawer 
-          state={state} 
-          updateState={updateState} 
-          onClose={() => setIsEditorOpen(false)} 
-        />
-      )}
     </div>
   );
 };

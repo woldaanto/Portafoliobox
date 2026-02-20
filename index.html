@@ -1,58 +1,57 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A J B | Portfolio</title>
+    <title>Portafolio | Estilo Editorial</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Inter:wght@100..900&family=Space+Grotesk:wght@300..700&family=Italiana&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <style>
-      body {
-        margin: 0;
-        padding: 0;
-        background-color: #f2f2f2;
-        overflow-x: hidden;
-      }
-      .font-playfair { font-family: 'Playfair Display', serif; }
-      .font-inter { font-family: 'Inter', sans-serif; }
-      .font-space { font-family: 'Space Grotesk', sans-serif; }
-      .font-italiana { font-family: 'Italiana', serif; }
-      
-      ::-webkit-scrollbar {
-        width: 4px;
-      }
-      ::-webkit-scrollbar-track {
-        background: transparent;
-      }
-      ::-webkit-scrollbar-thumb {
-        background: #000;
-      }
+        :root {
+            --bg-color: #f2f2f2;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: #000;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+        /* Estilos para el modo edición */
+        [contenteditable="true"]:hover {
+            outline: 2px dashed #ccc;
+            background-color: rgba(255, 255, 0, 0.05);
+        }
+        [contenteditable="true"]:focus {
+            outline: 2px solid #000;
+            background-color: #fff;
+        }
+        /* Scrollbar minimalista */
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #000; }
 
-      /* Animación suave para la entrada del contenido */
-      @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(10px); }
-        to { opacity: 1; transform: translateY(0); }
-      }
-      .animate-fade-in {
-        animation: fadeIn 1s ease-out forwards;
-      }
+        .font-space { font-family: 'Space Grotesk', sans-serif; }
     </style>
-<script type="importmap">
-{
-  "imports": {
-    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
-    "@google/genai": "https://esm.sh/@google/genai@^1.41.0",
-    "react": "https://esm.sh/react@^19.2.4",
-    "react/": "https://esm.sh/react@^19.2.4/"
-  }
-}
-</script>
+    <script type="importmap">
+    {
+      "imports": {
+        "react": "https://esm.sh/react@^19.2.4",
+        "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+        "react/": "https://esm.sh/react@^19.2.4/",
+        "@google/genai": "https://esm.sh/@google/genai@^1.41.0"
+      }
+    }
+    </script>
+<link rel="stylesheet" href="/index.css">
 </head>
 <body>
     <div id="root"></div>
+    <!-- Asegúrate de que este archivo exista en tu repo -->
     <script type="module" src="./index.tsx"></script>
+<script type="module" src="/index.tsx"></script>
 </body>
 </html>
