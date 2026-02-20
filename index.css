@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+@theme {
+  --font-inter: "Inter", sans-serif;
+  --font-space: "Space Grotesk", sans-serif;
+  --font-playfair: "Playfair Display", serif;
+  --font-italiana: "Italiana", serif;
+}
+
+@layer base {
+  :root {
+    --bg-color: #f2f2f2;
+  }
+  body {
+    @apply antialiased bg-[var(--bg-color)] text-black overflow-x-hidden;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Estilos para el modo edición */
+  [contenteditable="true"]:hover {
+    outline: 2px dashed #ccc;
+    background-color: rgba(255, 255, 0, 0.05);
+  }
+  [contenteditable="true"]:focus {
+    outline: 2px solid #000;
+    background-color: #fff;
+  }
+
+  /* Scrollbar minimalista */
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #000; }
+}
+
+.font-inter { font-family: var(--font-inter); }
+.font-space { font-family: var(--font-space); }
+.font-playfair { font-family: var(--font-playfair); }
+.font-italiana { font-family: var(--font-italiana); }
+
+/* Custom Cursor Utilities */
+.cursor-none * {
+  cursor: none !important;
+}
+
+/* Animations */
+@keyframes slide-in-right {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}

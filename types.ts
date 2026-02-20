@@ -8,6 +8,8 @@ export interface Project {
   image: string;
   description: string;
   letter?: string; // Letra gigante debajo de la foto
+  type?: 'image' | 'video';
+  videoUrl?: string;
 }
 
 export interface Experience {
@@ -24,6 +26,21 @@ export interface PortfolioTheme {
   headingFont: FontType;
   bodyFont: FontType;
   layout: 'minimal' | 'grid' | 'dossier';
+  headingSize: number;
+}
+
+export interface Section {
+  id: string;
+  type: 'hero' | 'gallery' | 'cv' | 'store' | 'booking';
+  title: string;
+  isVisible: boolean;
+}
+
+export interface CursorSettings {
+  type: 'default' | 'circle' | 'square' | 'dot' | 'crosshair';
+  color: string;
+  size: number;
+  mixBlendMode: 'normal' | 'difference' | 'exclusion';
 }
 
 export interface AppState {
@@ -32,4 +49,6 @@ export interface AppState {
   projects: Project[];
   experiences: Experience[];
   theme: PortfolioTheme;
+  sections: Section[];
+  cursor: CursorSettings;
 }
